@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 class Category(models.Model):
     parent = models.ForeignKey('self', verbose_name=_(
-        'parent'), on_delete=models.CASCADE)
+        'parent'), blank=True, null=True, on_delete=models.CASCADE)
     title = models.CharField(verbose_name=_('title'), max_length=50)
     description = models.TextField(verbose_name=_('description'), blank=True)
     avatar = models.ImageField(verbose_name=_(
@@ -19,6 +19,9 @@ class Category(models.Model):
         db_table = 'categories'
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
+
+    def __str__(self):
+        return self.title
 
 
 class Product(models.Model):
@@ -38,6 +41,9 @@ class Product(models.Model):
         db_table = 'products'
         verbose_name = _('Product')
         verbose_name_plural = _('Products')
+
+    def __str__(self):
+        return self.title
 
 
 class File(models.Model):
